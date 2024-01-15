@@ -1,0 +1,90 @@
+version: "3.9"
+services:
+
+  frontend:
+    image: frontend-image
+    ports:
+      - 80:80
+    build: 
+      context: ./chat-frontend
+      dockerfile: Dockerfile
+      target: production
+    restart: always
+
+  api:
+    image: api-image
+    ports:
+      - '81-89:3000'
+    build:
+      context: ./chat-api-node
+      dockerfile: Dockerfile
+    restart: on-failure
+    environment:
+      POSTGRES_HOST: psql
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      REDIS_HOST: redis
+      REDIS_PASSWORD: "${REDIS_PASSWORD}"
+    depends_on:
+      - psql
+      - redis
+      - nginx
+
+  nginx:
+    image: nginx:latest
+    restart: on-failure
+    ports:
+      - 4000:4000
+    volumes:
+      - ./proxy/proxy.conf:/etc/nginx/nginx.conf:ro
+
+  chat:
+    image: chat-server
+    build:
+      context: ./chat-server-node
+      dockerfile: Dockerfile
+    restart: on-failure
+    environment:
+      POSTGRES_HOST: psql
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      REDIS_HOST: redis
+      REDIS_PASSWORD: "${REDIS_PASSWORD}"
+    ports:
+      - 8077:8077
+    depends_on:
+      - psql
+      - redis
+
+  psql:
+    image: postgres:latest
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    restart: on-failure
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+    volumes:
+      - sqldata:/var/lib/postgresql/data
+      - ./psql:/docker-entrypoint-initdb.d
+
+  redis:
+    image: 'redis:latest'
+    environment:
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG
+      - REDIS_PASSWORD="${REDIS_PASSWORD}"
+    restart: on-failure
+    ports:
+      - "${REDIS_PORT}:6379"
+    command:
+      - /bin/sh
+      - -c
+      - redis-server --requirepass "${REDIS_PASSWORD}"
+    volumes:
+      - /data/redis
+
+volumes:
+  sqldata:

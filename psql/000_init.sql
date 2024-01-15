@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS Users(
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(128) UNIQUE NOT NULL,
+  password VARCHAR NOT NULL,
+  created_on TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT timezone('utc', now()),
+  last_login TIMESTAMP WITH TIME ZONE
+);

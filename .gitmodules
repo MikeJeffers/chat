@@ -1,0 +1,9 @@
+[submodule "chat-api-node"]
+	path = chat-api-node
+	url = git@github.com:MikeJeffers/chat-api-node.git
+[submodule "chat-server-node"]
+	path = chat-server-node
+	url = git@github.com:MikeJeffers/chat-server-node.git
+[submodule "chat-frontend"]
+	path = chat-frontend
+	url = git@github.com:MikeJeffers/chat-frontend.git
