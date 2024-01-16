@@ -26,6 +26,7 @@ services:
       POSTGRES_DB: "${POSTGRES_DB}"
       REDIS_HOST: redis
       REDIS_PASSWORD: "${REDIS_PASSWORD}"
+      SECRET_JWT: "${SECRET_JWT}"
     depends_on:
       - psql
       - redis
@@ -35,7 +36,7 @@ services:
     image: nginx:latest
     restart: on-failure
     ports:
-      - 4000:4000
+      - 3000:3333
     volumes:
       - ./proxy/proxy.conf:/etc/nginx/nginx.conf:ro
 
@@ -52,6 +53,7 @@ services:
       POSTGRES_DB: "${POSTGRES_DB}"
       REDIS_HOST: redis
       REDIS_PASSWORD: "${REDIS_PASSWORD}"
+      SECRET_JWT: "${SECRET_JWT}"
     ports:
       - 8077:8077
     depends_on:
