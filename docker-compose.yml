@@ -11,12 +11,33 @@ services:
       target: production
     restart: always
 
-  api:
-    image: api-image
+  api-node:
+    image: api-node-image
     ports:
-      - '81-89:3000'
+      - '3001:3000'
     build:
       context: ./chat-api-node
+      dockerfile: Dockerfile
+    restart: on-failure
+    environment:
+      POSTGRES_HOST: psql
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      REDIS_HOST: redis
+      REDIS_PASSWORD: "${REDIS_PASSWORD}"
+      SECRET_JWT: "${SECRET_JWT}"
+    depends_on:
+      - psql
+      - redis
+      - nginx
+
+  api-py:
+    image: api-py-image
+    ports:
+      - '3002:3000'
+    build:
+      context: ./chat-api-py
       dockerfile: Dockerfile
     restart: on-failure
     environment:
@@ -41,7 +62,7 @@ services:
       - ./proxy/proxy.conf:/etc/nginx/nginx.conf:ro
 
   chat:
-    image: chat-server
+    image: chat-server-node
     build:
       context: ./chat-server-node
       dockerfile: Dockerfile

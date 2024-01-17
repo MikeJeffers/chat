@@ -7,3 +7,6 @@
 [submodule "chat-frontend"]
 	path = chat-frontend
 	url = git@github.com:MikeJeffers/chat-frontend.git
+[submodule "chat-api-py"]
+	path = chat-api-py
+	url = git@github.com:MikeJeffers/chat-api-py.git
