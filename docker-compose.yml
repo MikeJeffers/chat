@@ -5,7 +5,7 @@ services:
     image: frontend-image
     ports:
       - 80:80
-    build: 
+    build:
       context: ./chat-frontend
       dockerfile: Dockerfile
       target: production
@@ -82,7 +82,7 @@ services:
     volumes:
       - ./proxy/proxy.conf:/etc/nginx/nginx.conf:ro
 
-  chat:
+  chat-node:
     image: chat-server-node
     build:
       context: ./chat-server-node
@@ -98,6 +98,26 @@ services:
       SECRET_JWT: "${SECRET_JWT}"
     ports:
       - 8077:8077
+    depends_on:
+      - psql
+      - redis
+
+  chat-py:
+    image: chat-server-py
+    build:
+      context: ./chat-server-py
+      dockerfile: Dockerfile
+    restart: on-failure
+    environment:
+      POSTGRES_HOST: psql
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      REDIS_HOST: redis
+      REDIS_PASSWORD: "${REDIS_PASSWORD}"
+      SECRET_JWT: "${SECRET_JWT}"
+    ports:
+      - 8078:8078
     depends_on:
       - psql
       - redis
