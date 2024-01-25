@@ -1,13 +1,12 @@
 # Chat
 Hey chat  
 
-This is the master repo for a simple chat application that features a single channel and user authentication.  From here the whole system can be up'd with a single command:
+This is the master repo for a simple chat application with services implemented in a variety of languages and frameworks orchestrated together with a single command:
 ```sh
 ./prod-up.sh
 ```
-Then navigate to your http://localhost and engage in rivetting conversations with the people in your walls.  
-Post motivating messages.  Use it as a log of your day.  Could this be the next Twitter?    The possibilities are limited!
-
+The web based client is a typescript react application that will allow you to register a user and connect to various chat servers.  Each chat server is a websocket server that hosts a single channel for users to connect to and chat with eachother.
+The User registration and Login API's are too multiple services proxied by an nginx instance which round-robins requests amoung different API servers.  This demonstrates the ability to implement the same API requirements using a variety of technologies.
 
 ## Setup
 **Warning: git submodules ahead**  
@@ -21,6 +20,11 @@ git submodule init
 git submodule update
 ```
 _Its really not that bad_
+
+### Envs
+The project and docker-compose expect a `.env` file at the root with the necessary variables.
+Run `./init.sh` to quickly make this file with the example provided.
+Configure this to your needs.
 
 ## Run
 ```sh

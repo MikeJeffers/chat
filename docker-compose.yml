@@ -99,7 +99,6 @@ services:
     ports:
       - 8077:8077
     depends_on:
-      - psql
       - redis
 
   chat-py:
@@ -119,7 +118,6 @@ services:
     ports:
       - 8078:8078
     depends_on:
-      - psql
       - redis
 
   psql:
