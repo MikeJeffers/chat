@@ -16,3 +16,6 @@
 [submodule "chat-server-py"]
 	path = chat-server-py
 	url = git@github.com:MikeJeffers/chat-server-py.git
+[submodule "chat-server-go"]
+	path = chat-server-go
+	url = git@github.com:MikeJeffers/chat-server-go.git
