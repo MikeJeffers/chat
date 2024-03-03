@@ -5,8 +5,21 @@ This is the master repo for a simple chat application with services implemented 
 ```sh
 ./up.sh
 ```
-The web based client is a typescript react application that will allow you to register a user and connect to various chat servers.  Each chat server is a websocket server that hosts a single channel for users to connect to and chat with eachother.
-The User registration and Login API's are too multiple services proxied by an nginx instance which round-robins requests amoung different API servers.  This demonstrates the ability to implement the same API requirements using a variety of technologies.
+## How it works
+<p align="center">
+<img src="https://github.com/MikeJeffers/chat/assets/2634337/f419a041-6c75-4933-9913-5e5b5b5043ae" width="640">
+</p>
+
+API servers are reverse proxied by Nginx and handle user auth and registration.  
+When auth succeeds a JWT is returned to the client which then uses it to connect to each available WebSocket chat server.  
+The Chat servers check the token against the stored token in redis.  
+The client is a react SPA that allows the user to navigate the auth flow and chat with others.
+
+### Why
+This project is mostly to capture languages or frameworks, as well as dependencies, I've learned.  
+Each api and chat server must implement the same interface so http and websocket traffic can be handled seamlessly with the same client.  This constraint is used to demonstrate some reasonable baseline of capability to operate and build something end-to-end in a new language.
+Overtime the degree of refinement in each service will also increase as more time is available to polish after the primary goal of breadth is achieved.  
+New languages, or features might be scoped in in the future so who knows. 
 
 ## Setup
 **Warning: git submodules ahead**  
