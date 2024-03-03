@@ -6,7 +6,7 @@ This is the master repo for a simple chat application with services implemented 
 ./up.sh
 ```
 <p align="center">
-<img src="https://github.com/MikeJeffers/chat/assets/2634337/772c1cdf-c18e-48a4-9875-97146413cf24" width="640">
+<img src="https://github.com/MikeJeffers/chat/assets/2634337/772c1cdf-c18e-48a4-9875-97146413cf24" width="582">
 </p>
 
 ## How it works
