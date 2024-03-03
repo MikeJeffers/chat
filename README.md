@@ -18,7 +18,7 @@ The client is a react SPA that allows the user to navigate the auth flow and cha
 ### Why
 This project is mostly to capture languages or frameworks, as well as dependencies, I've learned.  
 Each api and chat server must implement the same interface so http and websocket traffic can be handled seamlessly with the same client.  This constraint is used to demonstrate some reasonable baseline of capability to operate and build something end-to-end in a new language.
-Overtime the degree of refinement in each service will also increase as more time is available to polish after the primary goal of breadth is achieved.  
+Over time the degree of refinement in each service will also increase as more time is available to polish after the primary goal of breadth is achieved.  
 New languages, or features might be scoped in in the future so who knows. 
 
 ## Setup
