@@ -5,6 +5,10 @@ This is the master repo for a simple chat application with services implemented 
 ```sh
 ./up.sh
 ```
+<p align="center">
+<img src="https://github.com/MikeJeffers/chat/assets/2634337/772c1cdf-c18e-48a4-9875-97146413cf24" width="640">
+</p>
+
 ## How it works
 <p align="center">
 <img src="https://github.com/MikeJeffers/chat/assets/2634337/f419a041-6c75-4933-9913-5e5b5b5043ae" width="640">
